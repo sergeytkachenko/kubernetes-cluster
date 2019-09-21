@@ -40,12 +40,6 @@ snap install socat
 ```
 
 ```
-# after reboot 
-sudo systemctl restart docker
-sudo systemctl restart kubelet
-```
-
-```
 # listeners ports 
 socat -d TCP4-LISTEN:80,fork TCP4:127.0.0.1:30380 </dev/null &
 socat -d TCP4-LISTEN:443,fork TCP4:127.0.0.1:30443 </dev/null &
@@ -102,7 +96,7 @@ kubectl create clusterrolebinding permissive-binding --clusterrole=cluster-admin
 
 #### docker registry 
 ```
-docker run -d -p 32000:5000 --name registry registry:2
+docker run -d --rm -p 32000:5000 --name registry registry:2
 ```
 
 ##### force docker stop registry
@@ -113,3 +107,15 @@ docker stop registry
 
 ##### fail delete container in docker 
 ```sudo aa-remove-unknown```
+
+### after reboot scripts
+```
+sudo systemctl restart docker
+sudo systemctl restart kubelet
+
+docker run -d --rm -p 32000:5000 --name registry registry:2
+
+socat -d TCP4-LISTEN:80,fork TCP4:127.0.0.1:30380 </dev/null &
+socat -d TCP4-LISTEN:443,fork TCP4:127.0.0.1:30443 </dev/null &
+```
+
