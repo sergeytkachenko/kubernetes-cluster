@@ -14,7 +14,8 @@ apt-get install -y kubelet kubeadm kubectl
 
 cat > /etc/docker/daemon.json <<EOF
 {
-  "exec-opts": ["native.cgroupdriver=systemd"]
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "insecure-registries" : ["localhost:32000"]
 }
 EOF
 sudo systemctl restart docker
@@ -97,4 +98,15 @@ kubectl -n kube-system describe secrets  $(kubectl -n kube-system get secret | g
 # all permissions for
 kubectl create clusterrolebinding permissive-binding --clusterrole=cluster-admin --user=admin --user=kubelet --group=system:serviceaccounts
 
+```
+
+#### docker registry 
+```
+docker run -d -p 32000:5000 --name registry registry:2
+```
+
+##### force docker stop registry
+```
+docker exec registry reboot
+docker stop registry
 ```
