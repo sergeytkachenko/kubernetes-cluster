@@ -1,5 +1,7 @@
 # kubernetes-cluster
 
+
+#### init node
 ```
 iptables -I INPUT -j ACCEPT
 
@@ -9,6 +11,7 @@ sudo sed -i '/ swap / s/^/#/' /etc/fstab
 reboot
 ```
 
+#### install required programs
 ```
 apt-get install -y kubelet kubeadm kubectl
 
@@ -26,6 +29,13 @@ EOF
 ```
 
 ```
+# need for work ingress 
+snap install socat
+```
+
+
+#### start kuberenetes node
+```
 kubeadm init --pod-network-cidr=10.244.0.0/16 --control-plane-endpoint=192.168.8.106
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -35,19 +45,13 @@ kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 ```
 
 ```
-# need for work ingress 
-snap install socat
-```
-
-```
 # listeners ports 
 socat -d TCP4-LISTEN:80,fork TCP4:127.0.0.1:30380 </dev/null &
 socat -d TCP4-LISTEN:443,fork TCP4:127.0.0.1:30443 </dev/null &
 ```
 
+#### inastall kubernetes apps 
 ```
-# inastall apps 
-
 cat > /opt/rbac.yaml <<EOF
 apiVersion: v1
 kind: ServiceAccount
@@ -105,8 +109,13 @@ docker exec registry reboot
 docker stop registry
 ```
 
-##### fail delete container in docker 
-```sudo aa-remove-unknown```
+##### fail delete container in docker (signaling init process caused "permission denied")
+```
+sudo aa-status
+sudo systemctl disable apparmor.service --now
+sudo service apparmor teardown
+sudo aa-status
+```
 
 ### after reboot scripts
 ```
