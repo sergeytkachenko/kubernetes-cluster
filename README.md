@@ -110,3 +110,6 @@ docker run -d -p 32000:5000 --name registry registry:2
 docker exec registry reboot
 docker stop registry
 ```
+
+##### fail delete container in docker 
+```sudo aa-remove-unknown```
