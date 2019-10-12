@@ -160,9 +160,8 @@ EOF
 kubectl apply -f /opt/prod-issuer.yaml -n scraper
 ```
 
-.example ingress
+##### example ingress
 ```
-# add to ingress annotation 
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
