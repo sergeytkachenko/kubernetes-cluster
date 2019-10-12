@@ -138,3 +138,54 @@ kubectl apply --validate=false -f https://raw.githubusercontent.com/jetstack/cer
 kubectl create namespace cert-manager
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v0.11.0/cert-manager.yaml
 ```
+
+#### add cert-manager issuer
+
+```
+cat > /opt/prod-issuer.yaml <<EOF
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: bombascter@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+       - http01:
+           ingress:
+             class:  nginx
+EOF
+kubectl apply -f /opt/prod-issuer.yaml -n scraper
+```
+
+.example ingress
+```
+# add to ingress annotation 
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: myname
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: {{ .Values.ingress.secretName }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ template "docs.fullname" . }}
+              servicePort: {{ .Values.service.port }}
+```
+
+
