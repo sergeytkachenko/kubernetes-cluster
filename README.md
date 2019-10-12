@@ -128,3 +128,12 @@ socat -d TCP4-LISTEN:80,fork TCP4:127.0.0.1:30380 </dev/null &
 socat -d TCP4-LISTEN:443,fork TCP4:127.0.0.1:30443 </dev/null &
 ```
 
+### cert-manager
+```
+# Install the CustomResourceDefinition resources separately
+kubectl apply --validate=false -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.11/deploy/manifests/00-crds.yaml
+
+# Create the namespace for cert-manager
+kubectl create namespace cert-manager
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v0.11.0/cert-manager.yaml
+```
