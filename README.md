@@ -1,4 +1,4 @@
-# kubernetes-cluster
+# install k8s-cluster with cert-manager on Ubuntu 18
 
 
 #### init node
