@@ -158,6 +158,8 @@ spec:
              class:  nginx
 EOF
 kubectl apply -f /opt/prod-issuer.yaml -n scraper
+kubectl apply -f /opt/prod-issuer.yaml -n elasticsearch
+kubectl apply -f /opt/prod-issuer.yaml -n jenkins
 ```
 
 ##### example ingress
