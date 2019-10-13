@@ -186,4 +186,7 @@ spec:
               servicePort: {{ .Values.service.port }}
 ```
 
+```
+kubectl get certificate -n scraper
+```
 
