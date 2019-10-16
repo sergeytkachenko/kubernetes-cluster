@@ -128,6 +128,13 @@ socat -d TCP4-LISTEN:80,fork TCP4:127.0.0.1:30380 </dev/null &
 socat -d TCP4-LISTEN:443,fork TCP4:127.0.0.1:30443 </dev/null &
 ```
 
+### helm 3
+##### switch context
+```
+kubectl config set-context kubernetes-admin@kubernetes --namespace xxxxx
+helm list
+```
+
 ### cert-manager
 ```
 # https://docs.cert-manager.io/en/latest/getting-started/install/kubernetes.html
