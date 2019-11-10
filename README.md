@@ -124,6 +124,9 @@ sudo systemctl restart kubelet
 
 docker run -d --rm -p 32000:5000 --name registry registry:2
 
+# mount hdd disk 
+mount  /dev/sdb1  /mnt/
+
 socat -d TCP4-LISTEN:80,fork TCP4:127.0.0.1:30380 </dev/null &
 socat -d TCP4-LISTEN:443,fork TCP4:127.0.0.1:30443 </dev/null &
 ```
