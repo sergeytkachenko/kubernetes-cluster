@@ -202,3 +202,9 @@ spec:
 kubectl get certificate -n scraper
 ```
 
+##### pod errors 
+```
+kubectl get pods -n jenkins | grep Evicted | awk '{print $1}' | xargs kubectl delete pod  -n jenkins
+kubectl get pods -n kubernetes-dashboard | grep Evicted | awk '{print $1}' | xargs kubectl delete pod  -n kubernetes-dashboard
+kubectl get pods -n ingress-nginx | grep Evicted | awk '{print $1}' | xargs kubectl delete pod  -n ingress-nginx
+```
