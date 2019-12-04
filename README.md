@@ -100,7 +100,13 @@ kubectl create clusterrolebinding permissive-binding --clusterrole=cluster-admin
 
 #### docker registry 
 ```
-docker run -d --rm -p 32000:5000 --name registry registry:2
+docker run -d \
+  --restart=always \
+  --name registry \
+  -v /mnt/kubernetes/storage/registry:/var/lib/registry \
+  -p 32000:5000 \
+  --name registry \
+  registry:2
 ```
 
 ##### force docker stop registry
