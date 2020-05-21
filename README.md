@@ -213,3 +213,8 @@ kubectl get pods -n jenkins | grep Evicted | awk '{print $1}' | xargs kubectl de
 kubectl get pods -n kubernetes-dashboard | grep Evicted | awk '{print $1}' | xargs kubectl delete pod  -n kubernetes-dashboard
 kubectl get pods -n ingress-nginx | grep Evicted | awk '{print $1}' | xargs kubectl delete pod  -n ingress-nginx
 ```
+### Dinamic storage class
+```
+kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+# storageClassName: local-path
+```
