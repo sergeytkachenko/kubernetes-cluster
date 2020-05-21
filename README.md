@@ -81,7 +81,7 @@ helm init --service-account tiller --output yaml | sed 's@apiVersion: extensions
 
 #ingress
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-0.32.0/deploy/static/provider/baremetal/deploy.yaml
-kubectl patch svc ingress-nginx -n ingress-nginx -p '{"spec": {"ports": [{"name": "http","port": 80,"protocol": "TCP","targetPort": 80, "nodePort": 30380}, {"name": "https","port": 443,"protocol": "TCP","targetPort": 443, "nodePort": 30443}]}}'
+kubectl patch svc ingress-nginx-controller -n ingress-nginx -p '{"spec": {"ports": [{"name": "http","port": 80,"protocol": "TCP","targetPort": 80, "nodePort": 30380}, {"name": "https","port": 443,"protocol": "TCP","targetPort": 443, "nodePort": 30443}]}}'
 
 # dashboard
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml
