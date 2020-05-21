@@ -75,6 +75,8 @@ EOF
 kubectl apply -f /opt/rbac.yaml
 
 snap install helm --classic
+# install helm 2 version
+# curl -fSL https://storage.googleapis.com/kubernetes-helm/helm-v2.16.7-linux-amd64.tar.gz | tar xz -C /usr/local/bin/ --strip-components=1 linux-amd64/helm
 helm init --service-account tiller --output yaml | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' | sed 's@  replicas: 1@  replicas: 1\n  selector: {"matchLabels": {"app": "helm", "name": "tiller"}}@' | kubectl apply -f -
 
 # helm version 3 https://okteto.com/blog/early-look-at-helm-3/
