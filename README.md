@@ -220,3 +220,9 @@ kubectl get pods -n ingress-nginx | grep Evicted | awk '{print $1}' | xargs kube
 kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
 # storageClassName: local-path
 ```
+
+### Metrics server 
+
+```
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
