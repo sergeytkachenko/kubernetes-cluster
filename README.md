@@ -226,3 +226,13 @@ kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisione
 ```
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
+and change in deployment
+```
+v0.3.1 the same problem
+solve:
+metrics-server/deploy/1.8+/metrics-server-deployment.yaml Add the following
+
+command:
+- /metrics-server
+- --kubelet-insecure-tls
+```
