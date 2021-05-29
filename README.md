@@ -86,7 +86,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 kubectl patch svc ingress-nginx-controller -n ingress-nginx -p '{"spec": {"ports": [{"name": "http","port": 80,"protocol": "TCP","targetPort": 80, "nodePort": 30380}, {"name": "https","port": 443,"protocol": "TCP","targetPort": 443, "nodePort": 30443}]}}'
 
 # dashboard
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
 #export KUBE_EDITOR="nano"
 #kubectl edit svc/kubernetes-dashboard -n kubernetes-dashboard
 kubectl patch svc kubernetes-dashboard -n kubernetes-dashboard -p '{"spec": {"ports": [{"port": 443,"protocol": "TCP","targetPort": 8443, "nodePort": 30345}], "type": "NodePort"}}'
