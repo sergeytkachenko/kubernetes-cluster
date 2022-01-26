@@ -160,7 +160,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v0.1
 
 ```
 cat > /opt/prod-issuer.yaml <<EOF
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: letsencrypt-prod
